@@ -1,0 +1,65 @@
+" ~/.vimrc
+
+" no vi compat
+set nocompatible
+
+" initialize vundle
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+" start- all plugins below
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'tomasr/molokai'
+Plugin 'itchyny/lightline.vim'
+Plugin 'scrooloose/nerdtree.git'
+Plugin 'vim-ruby/vim-ruby.git'
+Plugin 'mhinz/vim-rfc.git'
+Plugin 'vim-scripts/rfc-syntax', {'for': 'rfc'}
+
+" stop - all plugins above
+call vundle#end()
+
+syntax on
+set modeline
+set tabstop=4 "tabs count for 4 spaces when reading a file
+set softtabstop=4 "tabs count for 4 spaces while editing a file
+set expandtab " expand all tabs into spaces
+set relativenumber " current line is always 0 and count lines from there
+set cursorline " graphically show what line we're on. Can get annoying pending on colorscheme
+set wildmenu "show graphical menu while typing file names
+set lazyredraw " Don't redraw on macros
+set showmatch " Show matching parenthesis, etc
+set hlsearch "highlight search terms
+
+" NERDTree shortcut
+map <C-n> :NERDTreeToggle<CR>
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR> "turns off highligting after search
+
+" Lightline fix
+set laststatus=2
+
+let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"":""}',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+
+
+" filetype func on
+filetype plugin indent on
+
+autocmd Filetype ruby setlocal ts=2 sw=2 "settings for ruby
+
+" Set color
+colorscheme molokai
+set background=dark
+set modeline
+"set colorcolumn=80
+
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
