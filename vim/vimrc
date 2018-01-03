@@ -13,10 +13,11 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'tomasr/molokai'
 Plugin 'itchyny/lightline.vim'
-Plugin 'scrooloose/nerdtree.git'
+"Plugin 'scrooloose/nerdtree.git'
 Plugin 'vim-ruby/vim-ruby.git'
 Plugin 'mhinz/vim-rfc.git'
 Plugin 'vim-scripts/rfc-syntax', {'for': 'rfc'}
+Plugin 'tpope/vim-fugitive.git'
 
 " stop - all plugins above
 call vundle#end()
@@ -27,11 +28,13 @@ set tabstop=4 "tabs count for 4 spaces when reading a file
 set softtabstop=4 "tabs count for 4 spaces while editing a file
 set expandtab " expand all tabs into spaces
 set relativenumber " current line is always 0 and count lines from there
+set number "Allows hybrid numbering on. Shows absolute number on current line and relative elsewhere
 set cursorline " graphically show what line we're on. Can get annoying pending on colorscheme
 set wildmenu "show graphical menu while typing file names
 set lazyredraw " Don't redraw on macros
 set showmatch " Show matching parenthesis, etc
 set hlsearch "highlight search terms
+set tags=./tags;/ "checks for tags in local dir and moves up until it finds it.
 
 " NERDTree shortcut
 map <C-n> :NERDTreeToggle<CR>
@@ -63,3 +66,9 @@ set modeline
 
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+augroup numbertoggle
+        autocmd!
+        autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+        autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
+augroup END
